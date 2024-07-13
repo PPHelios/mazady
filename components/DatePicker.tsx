@@ -19,7 +19,7 @@ export default function DatePicker({
   setDate,
 }: {
   date: Date;
-  setDate: SelectSingleEventHandler;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }) {
   return (
     <Popover>
@@ -41,6 +41,7 @@ export default function DatePicker({
         <Calendar
           mode="single"
           selected={date}
+          //@ts-ignore
           onSelect={setDate}
           initialFocus
         />

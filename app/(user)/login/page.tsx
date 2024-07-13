@@ -2,7 +2,10 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import {
+  BottomGradient,
+  LabelInputContainer,
+} from "@/components/ui/FormElements";
 
 export default function Signup() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -10,9 +13,9 @@ export default function Signup() {
     console.log("Form submitted");
   };
   return (
-    <div
-      className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input
-        dark:bg-black md:rounded-2xl md:p-8"
+    <main
+      className="mx-auto mt-8 w-full max-w-md rounded-none bg-white p-4
+        shadow-input dark:bg-black md:rounded-2xl md:p-8"
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Welcome to Mazady
@@ -48,37 +51,6 @@ export default function Signup() {
             via-neutral-300 to-transparent dark:via-neutral-700"
         />
       </form>
-    </div>
+    </main>
   );
 }
-
-export const BottomGradient = () => {
-  return (
-    <>
-      <span
-        className="absolute inset-x-0 -bottom-px block h-px w-full
-          bg-gradient-to-r from-transparent via-cyan-500 to-transparent
-          opacity-0 transition duration-500 group-hover/btn:opacity-100"
-      />
-      <span
-        className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2
-          bg-gradient-to-r from-transparent via-indigo-500 to-transparent
-          opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100"
-      />
-    </>
-  );
-};
-
-export const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex w-full flex-col space-y-2", className)}>
-      {children}
-    </div>
-  );
-};

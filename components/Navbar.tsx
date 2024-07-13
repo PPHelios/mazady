@@ -61,8 +61,11 @@ export function Navbar() {
       className="items-center justify-between gap-5 bg-surface px-5 py-6 md:flex
         md:flex-row"
     >
-      <div className="flex flex-row items-center justify-center gap-5">
-        <Link href="/" legacyBehavior passHref>
+      <div
+        className="pointer-cursor pointer-events-auto z-10 flex flex-row
+          items-center justify-center gap-5"
+      >
+        <Link href="/" passHref>
           <img
             src="/mazady.gif"
             alt="mazadat"
@@ -94,9 +97,8 @@ export function Navbar() {
                         <p
                           className="text-sm leading-tight text-muted-foreground"
                         >
-                          Beautifully designed components that you can copy and
-                          paste into your apps. Accessible. Customizable. Open
-                          Source.
+                          Mazady is a leading website in online bidding. Add
+                          your item now to get the heighest price.
                         </p>
                       </Link>
                     </NavigationMenuLink>

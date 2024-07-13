@@ -2,7 +2,10 @@
 
 import ImagesUploader from "@/components/ImagesUploader";
 import React, { useState } from "react";
-import { BottomGradient, LabelInputContainer } from "../login/page";
+import {
+  BottomGradient,
+  LabelInputContainer,
+} from "@/components/ui/FormElements";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
