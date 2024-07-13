@@ -75,7 +75,7 @@ export function SearchBox() {
               <>{selectedStatus.label}</>
             ) : (
               <>
-                <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" /> Search
+                <Search className="mr-2 size-4 shrink-0 opacity-50" /> Search
                 for category
               </>
             )}
@@ -99,7 +99,7 @@ export function SearchBox() {
             <>{selectedStatus.label}</>
           ) : (
             <>
-              <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" /> Search for
+              <Search className="mr-2 size-4 shrink-0 opacity-50" /> Search for
               category
             </>
           )}

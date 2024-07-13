@@ -12,21 +12,28 @@ function Category() {
     <main>
       {categoryInfo && (
         <div
-          className="relative h-[320px] mx-auto mt-9 flex w-[50%] flex-col items-center
-            justify-center "
+          className="relative mx-auto mt-9 flex h-[320px] w-1/2 flex-col
+            items-center justify-center"
         >
-          <h1 className="text-5xl font-bold text-white p-10 bg-blue-900 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-40 rounded-full overflow-hidden">{categoryInfo.title}</h1>
+          <h1
+            className="overflow-hidden rounded-full bg-blue-900/40
+              bg-clip-padding p-10 text-5xl font-bold text-white
+              backdrop-blur-md"
+          >
+            {categoryInfo.title}
+          </h1>
           {/* <div>{categoryInfo.description}</div> */}
           <img
             src={`/${categoryInfo?.image}`}
             alt="mazadat"
-            className="absolute size-full top-0 left-0 right-0 object-cover z-[-1] rounded-md"
+            className="absolute inset-x-0 top-0 z-[-1] size-full rounded-md
+              object-cover"
           />
         </div>
       )}
       <div
-        className="mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-4
-          lg:grid-cols-3 py-8 px-28"
+        className="mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-4 px-28
+          py-8 lg:grid-cols-3"
       >
         {projects.map((project) => (
           <Product key={project.link} {...project} />

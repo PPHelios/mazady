@@ -13,11 +13,11 @@ export default function Home() {
         <img
           src="/banner.webp"
           alt="mazadat"
-          className="absolute left-0 top-0 h-full w-full object-cover"
+          className="absolute left-0 top-0 size-full object-cover"
         />
         <div
-          className="mx-auto rounded-md border border-gray-100 bg-blue-200
-            bg-opacity-40 bg-clip-padding backdrop-blur-md backdrop-filter"
+          className="mx-auto rounded-md border border-gray-100 bg-blue-200/40
+            bg-clip-padding backdrop-blur-md"
         >
           <TextHighlight />
         </div>

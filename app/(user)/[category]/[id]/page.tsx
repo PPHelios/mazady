@@ -29,15 +29,15 @@ function ProductPage() {
             <div className="w-full">
               <ItemCarousel pics={pics} />
             </div>
-            <div className="w-full ">
+            <div className="w-full">
               <h1 className="hidden text-3xl md:block">{item.title}</h1>
               <div>
-                <div className="mih-6 flex justify-start items-center">
-                <CountDownTimer
-                  endDate={item.endDate}
-                  activeStyle={{ color: "darkRed", fontWeight: "semibold" }}
-                  endedStyle={{ color: "darkRed" }}
-                />
+                <div className="min-h-6 flex items-center justify-start">
+                  <CountDownTimer
+                    endDate={item.endDate}
+                    activeStyle={{ color: "darkRed", fontWeight: "semibold" }}
+                    endedStyle={{ color: "darkRed" }}
+                  />
                 </div>
                 <div className="my-2">
                   <div>Current Bid</div>
@@ -58,8 +58,12 @@ function ProductPage() {
                     >
                       Bid Now
                     </Button>
-                    <Button variant="outline" size="icon" className="bg-slate-200">
-                      <Heart className="h-4 w-4 text-red-400 " />
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="bg-slate-200"
+                    >
+                      <Heart className="size-4 text-red-400" />
                     </Button>
                   </div>
                   <p className="mt-4">{item.description}</p>

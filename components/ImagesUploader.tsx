@@ -24,7 +24,10 @@ function ImagesUploader({
       className="relative max-w-xs space-y-1"
     >
       <FileInput>
-        <div className="flex bg-slate-300 dark:bg-zinc-800 items-center justify-center h-32 w-full border bg-background rounded-md">
+        <div
+          className="flex h-32 w-full items-center justify-center rounded-md
+            border bg-slate-300 dark:bg-zinc-800"
+        >
           <p className="text-gray-900 dark:text-white">Drop files here</p>
         </div>
       </FileInput>

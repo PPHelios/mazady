@@ -60,14 +60,13 @@ export default function Product({
           </div>
           <div className="flex items-center justify-between px-5 pb-5">
             <div
-              className="flex h-10 w-[50%] items-center justify-center
-                rounded-sm rounded-ee-none rounded-se-none border bg-background
-                text-center"
+              className="flex h-10 w-1/2 items-center justify-center rounded-sm
+                rounded-ee-none rounded-se-none border bg-background text-center"
             >
               Last Pid: {lastPid}$
             </div>
             <Button
-              className="pointer-events-auto z-10 w-[50%] cursor-pointer
+              className="pointer-events-auto z-10 w-1/2 cursor-pointer
                 rounded-es-none rounded-ss-none bg-orange-600
                 hover:bg-orange-600/50 dark:text-white"
               onClick={(e) => {

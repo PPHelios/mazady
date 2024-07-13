@@ -29,14 +29,14 @@ export const HoverEffect = ({
         <Link
           href={item?.link}
           key={item?.link}
-          className="group relative block h-full w-full p-2"
+          className="group relative block size-full p-2"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 block h-full w-full rounded-3xl
+                className="absolute inset-0 block size-full rounded-3xl
                   bg-orange-400/70"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
@@ -134,7 +134,7 @@ export const CardDescription = ({
 const Noise = () => {
   return (
     <div
-      className="absolute inset-0 h-full w-full scale-[1.2] transform opacity-10
+      className="absolute inset-0 size-full scale-[1.2] transform opacity-10
         [mask-image:radial-gradient(#fff,transparent,75%)]"
       style={{
         backgroundImage: "url(/noise.webp)",
