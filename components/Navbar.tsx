@@ -62,11 +62,13 @@ export function Navbar() {
         md:flex-row"
     >
       <div className="flex flex-row items-center justify-center gap-5">
-        <img
-          src="/mazady.gif"
-          alt="mazadat"
-          className="h-[50px] w-[100px] object-cover"
-        />
+        <Link href="/" legacyBehavior passHref>
+          <img
+            src="/mazady.gif"
+            alt="mazadat"
+            className="h-[50px] w-[100px] object-cover"
+          />
+        </Link>
         <NavigationMenu>
           <NavigationMenuList className="rtl:flex-row-reverse">
             <NavigationMenuItem>
@@ -139,18 +141,19 @@ export function Navbar() {
       <div className="flex flex-row items-center justify-center gap-5">
         <SearchBox />
         <Link href="/login" legacyBehavior passHref>
-        <Button className="bg-orange-600 hover:bg-orange-400/70 dark:text-white">
-          Login
-        </Button>
+          <Button
+            className="bg-orange-600 hover:bg-orange-400/70 dark:text-white"
+          >
+            Login
+          </Button>
         </Link>
         <Link href="/signup" legacyBehavior passHref>
-        <Button
-          variant="secondary"
-          className="dark:bg-black dark:hover:bg-slate-800"
-
-        >
-          Signup
-        </Button>
+          <Button
+            variant="secondary"
+            className="dark:bg-black dark:hover:bg-slate-800"
+          >
+            Signup
+          </Button>
         </Link>
         <ThemeToggler />
       </div>

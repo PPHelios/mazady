@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-blueGray-200 relative pb-6 pt-8">
+    <footer className="bg-blueGray-200 relative pb-6 mt-16 pt-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap text-left lg:text-left">
           <div className="w-full px-4 lg:w-6/12">
@@ -73,7 +73,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://www.creative-tim.com/presentation?ref=njs-profile"
+                      href="/"
                     >
                       About Us
                     </a>
@@ -82,7 +82,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://blog.creative-tim.com?ref=njs-profile"
+                      href="/"
                     >
                       Blog
                     </a>
@@ -91,7 +91,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://www.github.com/creativetimofficial?ref=njs-profile"
+                      href="/"
                     >
                       Github
                     </a>
@@ -100,7 +100,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile"
+                      href="/"
                     >
                       Free Products
                     </a>
@@ -119,7 +119,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile"
+                      href="/"
                     >
                       MIT License
                     </a>
@@ -128,7 +128,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://creative-tim.com/terms?ref=njs-profile"
+                      href="/"
                     >
                       Terms &amp; Conditions
                     </a>
@@ -137,7 +137,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://creative-tim.com/privacy?ref=njs-profile"
+                      href="/"
                     >
                       Privacy Policy
                     </a>
@@ -146,7 +146,7 @@ function Footer() {
                     <a
                       className="text-blueGray-600 hover:text-blueGray-800 block
                         pb-2 text-sm font-semibold"
-                      href="https://creative-tim.com/contact-us?ref=njs-profile"
+                      href="/"
                     >
                       Contact Us
                     </a>
@@ -165,7 +165,7 @@ function Footer() {
             <div className="text-blueGray-500 py-1 text-sm font-semibold">
               Copyright © <span id="get-current-year">2024</span>
               <a
-                href="https://www.creative-tim.com/product/notus-js"
+                href="/"
                 className="text-blueGray-500 hover:text-gray-800"
                 target="_blank"
               >
@@ -173,7 +173,7 @@ function Footer() {
                 Mazady By{" "}
               </a>
               <a
-                href="https://www.creative-tim.com?ref=njs-profile"
+                href="/"
                 className="text-blueGray-500 hover:text-blueGray-800"
               >
                 Haytham Atef

@@ -1,5 +1,7 @@
 import { Categories } from "@/components/Categories";
+import CTAButton from "@/components/CTAButton";
 import { TextHighlight } from "@/components/TextHighlight";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -7,13 +9,25 @@ export default function Home() {
       className="flex min-h-screen flex-col items-center justify-between px-5
         pb-14 pt-4"
     >
-      <div className="w-full h-screen relative flex justify-center items-center">
-        <img src="/banner.jpg" alt="mazadat" className="object-cover absolute top-0 left-0 w-full h-full"/>
-        <div className=" mx-auto bg-blue-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-40 border border-gray-100">
-          <TextHighlight/>
+      <div className="relative flex h-screen w-full items-center justify-center">
+        <img
+          src="/banner.webp"
+          alt="mazadat"
+          className="absolute left-0 top-0 h-full w-full object-cover"
+        />
+        <div
+          className="mx-auto rounded-md border border-gray-100 bg-blue-200
+            bg-opacity-40 bg-clip-padding backdrop-blur-md backdrop-filter"
+        >
+          <TextHighlight />
         </div>
       </div>
-      <Categories/>
+      <Link href="/addItem">
+        <div className="my-16">
+          <CTAButton />
+        </div>
+      </Link>
+      <Categories />
     </main>
   );
 }
