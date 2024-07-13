@@ -138,15 +138,20 @@ export function Navbar() {
 
       <div className="flex flex-row items-center justify-center gap-5">
         <SearchBox />
+        <Link href="/login" legacyBehavior passHref>
         <Button className="bg-orange-600 hover:bg-orange-400/70 dark:text-white">
           Login
         </Button>
+        </Link>
+        <Link href="/signup" legacyBehavior passHref>
         <Button
           variant="secondary"
           className="dark:bg-black dark:hover:bg-slate-800"
+
         >
           Signup
         </Button>
+        </Link>
         <ThemeToggler />
       </div>
     </nav>
