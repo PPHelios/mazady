@@ -32,7 +32,7 @@ function ProductPage() {
             <div className="w-full">
               <h1 className="hidden text-3xl md:block">{item.title}</h1>
               <div>
-                <div className="min-h-6 flex items-center justify-start">
+                <div className="flex min-h-6 items-center justify-start">
                   <CountDownTimer
                     endDate={item.endDate}
                     activeStyle={{ color: "darkRed", fontWeight: "semibold" }}
