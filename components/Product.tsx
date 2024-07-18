@@ -53,8 +53,8 @@ export default function Product({
           <div className="min-h-9">
             <CountDownTimer
               endDate={endDate}
-              activeStyle={{ color: "darkRed", fontSize: "1.5rem" }}
-              endedStyle={{ color: "darkRed", fontSize: "1.5rem" }}
+              activeStyle={{ color: "darkRed", fontSize: "1.2rem" }}
+              endedStyle={{ color: "darkRed", fontSize: "1.2rem" }}
               className="mx-5 bg-slate-200 py-1 text-xl font-semibold"
             />
           </div>

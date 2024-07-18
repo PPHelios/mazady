@@ -3,10 +3,10 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-blueGray-200 relative pb-6 mt-16 pt-8">
+    <footer className="relative mt-16 bg-white pb-6 pt-8 dark:bg-slate-800">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap text-left lg:text-left">
-          <div className="w-full px-4 lg:w-6/12">
+          <div className="px-4 lg:w-6/12">
             <h4 className="fonat-semibold text-blueGray-700 text-3xl">
               Let&apos;s keep in touch!
             </h4>
@@ -172,10 +172,7 @@ function Footer() {
                 {" "}
                 Mazady By{" "}
               </a>
-              <a
-                href="/"
-                className="text-blueGray-500 hover:text-blueGray-800"
-              >
+              <a href="/" className="text-blueGray-500 hover:text-blueGray-800">
                 Haytham Atef
               </a>
               .

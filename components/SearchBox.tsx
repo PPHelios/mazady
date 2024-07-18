@@ -60,7 +60,11 @@ const statuses: Status[] = [
   },
 ];
 
-export function SearchBox() {
+export function SearchBox({
+  setSheetOpen,
+}: {
+  setSheetOpen?: (open: boolean) => void;
+}) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
@@ -82,7 +86,7 @@ export function SearchBox() {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[250px] p-0" align="start">
-          <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+          <StatusList setOpen={setOpen} setSheetOpen={setSheetOpen} />
         </PopoverContent>
       </Popover>
     );
@@ -107,7 +111,7 @@ export function SearchBox() {
       </DrawerTrigger>
       <DrawerContent>
         <div className="mt-4 border-t">
-          <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+          <StatusList setSheetOpen={setSheetOpen} setOpen={setOpen} />
         </div>
       </DrawerContent>
     </Drawer>
@@ -116,10 +120,10 @@ export function SearchBox() {
 
 function StatusList({
   setOpen,
-  setSelectedStatus,
+  setSheetOpen,
 }: {
   setOpen: (open: boolean) => void;
-  setSelectedStatus: (status: Status | null) => void;
+  setSheetOpen?: (open: boolean) => void;
 }) {
   const router = useRouter();
   return (
@@ -137,6 +141,9 @@ function StatusList({
                 //   statuses.find((priority) => priority.value === value) || null,
                 // );
                 setOpen(false);
+                if (setSheetOpen) {
+                  setSheetOpen(false);
+                }
                 router.push(`/${status.link}`);
               }}
             >

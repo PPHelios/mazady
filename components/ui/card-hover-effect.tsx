@@ -17,11 +17,11 @@ export const HoverEffect = ({
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
+  items.filter((item, idx) => idx >= 5);
   return (
     <div
       className={cn(
-        "grid grid-cols-1 py-4 md:grid-cols-2 lg:grid-cols-3",
+        "grid grid-cols-1 md:py-4 md:grid-cols-2 lg:grid-cols-3",
         className,
       )}
     >

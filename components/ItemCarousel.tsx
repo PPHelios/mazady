@@ -8,45 +8,56 @@ import {
 
 const ItemCarousel = ({ pics }: { pics: string[] }) => {
   return (
-    <Carousel orientation="vertical" className="flex items-center gap-2 ">
-      <div className="relative basis-3/4">
-        <CarouselMainContainer className="h-96 ">
-          {pics.map((pic) => (
-            <SliderMainItem
-              key={pic}
-              className="flex max-h-96 items-center justify-center rounded-md
-                border border-muted"
-            >
-              <img
-                src={`/${pic}`}
-                alt={pic}
-                className="size-full object-cover"
-              />
-            </SliderMainItem>
-          ))}
-        </CarouselMainContainer>
-      </div>
-      <CarouselThumbsContainer className="h-60 basis-1/4 ">
-        {pics.map((pic, index) => (
-          <SliderThumbItem
-            key={index}
-            index={index}
-            className="rounded-md bg-transparent"
+    <div data-testid="div">
+      {pics && pics.length > 0 && (
+        <Carousel
+          orientation="vertical"
+          className="flex flex-col items-center gap-2 md:flex-row"
+          carouselOptions={{ loop: true }}
+        >
+          <div className="relative basis-3/4">
+            <CarouselMainContainer className="h-96">
+              {pics.map((pic) => (
+                <SliderMainItem
+                  key={pic}
+                  className="flex max-h-96 items-center justify-center
+                    rounded-md border border-muted"
+                >
+                  <img
+                    src={`/${pic}`}
+                    alt={pic}
+                    className="size-full object-cover"
+                  />
+                </SliderMainItem>
+              ))}
+            </CarouselMainContainer>
+          </div>
+          <CarouselThumbsContainer
+            className="h-30 w-screen md:w-auto flex basis-1/4 flex-row overflow-hidden
+              md:block md:h-60"
           >
-            <span
-              className="flex size-full cursor-pointer items-center
-                justify-center rounded-md border border-muted bg-background"
-            >
-              <img
-                src={`/${pic}`}
-                alt={pic}
-                className="size-full object-cover"
-              />
-            </span>
-          </SliderThumbItem>
-        ))}
-      </CarouselThumbsContainer>
-    </Carousel>
+            {pics.map((pic, index) => (
+              <SliderThumbItem
+                key={index}
+                index={index}
+                className="rounded-md bg-transparent"
+              >
+                <span
+                  className="flex cursor-pointer items-center justify-center
+                    rounded-md border border-muted bg-background"
+                >
+                  <img
+                    src={`/${pic}`}
+                    alt={pic}
+                    className="size-full object-cover"
+                  />
+                </span>
+              </SliderThumbItem>
+            ))}
+          </CarouselThumbsContainer>
+        </Carousel>
+      )}
+    </div>
   );
 };
 

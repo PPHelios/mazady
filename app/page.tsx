@@ -1,4 +1,4 @@
-import { Categories } from "@/components/Categories";
+import Categories from "@/components/Categories";
 import CTAButton from "@/components/CTAButton";
 import { TextHighlight } from "@/components/TextHighlight";
 import Link from "next/link";
@@ -6,10 +6,10 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-between px-5
+      className="flex min-h-screen flex-col items-center justify-between px-1 md:px-5
         pb-14 pt-4"
     >
-      <div className="relative flex h-screen w-full items-center justify-center">
+      <div className="relative flex h-screen items-center justify-center">
         <img
           src="/banner.webp"
           alt="mazadat"
