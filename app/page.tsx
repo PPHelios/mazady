@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-between px-1 md:px-5
-        pb-14 pt-4"
+      className="flex min-h-screen flex-col items-center justify-between px-1
+        pb-14 pt-4 md:px-5"
     >
       <div className="relative flex h-screen items-center justify-center">
         <img

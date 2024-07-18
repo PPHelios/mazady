@@ -67,22 +67,13 @@ export function SearchBox({
 }) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
-    null,
-  );
   if (isDesktop) {
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="outline" className="w-[200px] justify-start">
-            {selectedStatus ? (
-              <>{selectedStatus.label}</>
-            ) : (
-              <>
-                <Search className="mr-2 size-4 shrink-0 opacity-50" /> Search
-                for category
-              </>
-            )}
+            <Search className="mr-2 size-4 shrink-0 opacity-50" /> Search for
+            category
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[250px] p-0" align="start">
@@ -99,14 +90,8 @@ export function SearchBox({
           variant="outline"
           className="w-[200px] justify-start md:w-[150px]"
         >
-          {selectedStatus ? (
-            <>{selectedStatus.label}</>
-          ) : (
-            <>
-              <Search className="mr-2 size-4 shrink-0 opacity-50" /> Search for
-              category
-            </>
-          )}
+          <Search className="mr-2 size-4 shrink-0 opacity-50" /> Search for
+          category
         </Button>
       </DrawerTrigger>
       <DrawerContent>

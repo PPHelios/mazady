@@ -32,7 +32,7 @@ function ResSheet() {
         <SheetHeader>
           <SheetTitle>Mazady</SheetTitle>
         </SheetHeader>
-        <div className="items flex-col justify-start gap-5 pt-5">
+        <div className="flex-col justify-start gap-5 pt-5">
           <SearchBox setSheetOpen={setSheetOpen} />
           <div>
             <MenuContent
@@ -77,8 +77,8 @@ function ResSheet() {
 const Title = ({ label, clasName }: { label: string; clasName?: string }) => {
   return (
     <div
-      className={`hover:decoration-none cursor-pointer text-lg font-medium
-        hover:text-orange-500 ${clasName}`}
+      className={`cursor-pointer text-lg font-medium hover:text-orange-500
+        ${clasName}`}
     >
       {label}
     </div>

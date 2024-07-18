@@ -4,12 +4,12 @@ const CountDownTimer = ({
   endDate,
   className,
   activeStyle,
-  endedStyle
+  endedStyle,
 }: {
   endDate: string;
   className?: string;
   activeStyle?: React.CSSProperties;
-  endedStyle?: React.CSSProperties
+  endedStyle?: React.CSSProperties;
 }) => {
   const [timeLeft, setTimeLeft] = useState(timeDiffFromNow(endDate));
 
@@ -28,9 +28,7 @@ const CountDownTimer = ({
       timeLeft.minutes !== 0 &&
       timeLeft.seconds !== 0 ? (
         <>
-          <div style={activeStyle}>
-            {timeLeft.days} Days
-          </div>
+          <div style={activeStyle}>{timeLeft.days} Days</div>
           <div
             style={activeStyle}
           >{`${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds} Left`}</div>

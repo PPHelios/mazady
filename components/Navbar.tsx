@@ -14,12 +14,12 @@ import NavMenu from "./NavMenu";
 export function Navbar() {
   return (
     <nav
-      className="items-center justify-between gap-5 bg-surface px-2 py-2 md:flex
+      className="items-center justify-between gap-5 bg-surface p-2 md:flex
         md:flex-row md:px-5 md:py-6"
     >
       <div
-        className="pointer-cursor pointer-events-auto z-10 flex flex-row
-          items-center justify-between gap-5 md:justify-center"
+        className="pointer-events-auto z-10 flex flex-row items-center
+          justify-between gap-5 md:justify-center"
       >
         <ResSheet />
         <Link href="/" passHref>

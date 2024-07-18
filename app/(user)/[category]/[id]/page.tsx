@@ -20,7 +20,7 @@ function ProductPage() {
           <h1 className="text-3xl md:hidden">{item.title}</h1>
           <div className="flex flex-col gap-2 md:flex-row">
             <div className="">
-              <ItemCarousel  pics={item.pics}/>
+              <ItemCarousel pics={item.pics} />
             </div>
             <div className="w-full">
               <h1 className="hidden text-3xl md:block">{item.title}</h1>
@@ -48,7 +48,7 @@ function ProductPage() {
                     <Button
                       className="bg-orange-600 hover:bg-orange-600/50
                         dark:text-white"
-                        data-testid="btn"
+                      data-testid="btn"
                     >
                       Bid Now
                     </Button>

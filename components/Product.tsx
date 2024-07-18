@@ -35,7 +35,7 @@ export default function Product({
             <img
               src={`/${image}`}
               alt={title}
-              className="width-full rounded-2xl object-cover"
+              className="w-full rounded-2xl object-cover"
             />
           </div>
           <div className="px-4 py-3">
