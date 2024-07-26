@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { WobbleCard } from "./ui/wobble-card";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { timeDiffFromNow } from "@/helpers/functions";
 const CountDownTimer = dynamic(() => import("./CountDownTimer"), {
   ssr: false,
 });
@@ -12,7 +13,7 @@ type Props = {
   image: string;
   link: string;
   endDate: string;
-  lastPid: number;
+  lastBid: number;
 };
 export default function Product({
   id,
@@ -20,10 +21,26 @@ export default function Product({
   image,
   link,
   endDate,
-  lastPid,
+  lastBid,
 }: Props) {
   const router = useRouter();
-
+  const timeLeft =
+    useMemo(() => timeDiffFromNow(endDate), [endDate]) ||
+    timeDiffFromNow(endDate);
+  const timeEnded = useMemo(
+    () =>
+      timeLeft.days === 0 &&
+      timeLeft.hours === 0 &&
+      timeLeft.minutes === 0 &&
+      timeLeft.seconds === 0,
+    [
+      endDate,
+      timeLeft.days,
+      timeLeft.hours,
+      timeLeft.minutes,
+      timeLeft.seconds,
+    ],
+  );
   return (
     <WobbleCard
       containerClassName="h-[340px] border border-gray-200 cursor-pointer pointer-events-auto "
@@ -63,7 +80,7 @@ export default function Product({
               className="flex h-10 w-1/2 items-center justify-center rounded-sm
                 rounded-ee-none rounded-se-none border bg-background text-center"
             >
-              Last Pid: {lastPid}$
+              Last Bid: {lastBid}$
             </div>
             <Button
               className="pointer-events-auto z-10 w-1/2 cursor-pointer
@@ -71,10 +88,11 @@ export default function Product({
                 hover:bg-orange-600/50 dark:text-white"
               onClick={(e) => {
                 e.stopPropagation();
-                alert("Pid added");
+                alert("Bid added");
               }}
+              disabled={timeEnded}
             >
-              Pid {lastPid + 50}$
+              Bid {lastBid + 50}$
             </Button>
           </div>
         </div>

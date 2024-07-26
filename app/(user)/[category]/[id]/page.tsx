@@ -38,7 +38,7 @@ function ProductPage() {
                     className="mt-1 flex items-center justify-start gap-2
                       text-lg"
                   >
-                    <div>$ {item.lastPid}</div>
+                    <div>$ {item.lastBid}</div>
                     <div className="text-sm text-muted-foreground">2 bids</div>
                   </div>
                   <div
