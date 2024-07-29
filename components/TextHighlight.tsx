@@ -22,10 +22,9 @@ export function TextHighlight() {
           leading-relaxed text-neutral-700 dark:text-white md:text-4xl
           lg:text-5xl lg:leading-snug"
       >
-        Step into a world of endless possibilities,
-        {" "}
+        Step into a world of endless possibilities,{" "}
         <Highlight className="text-black dark:text-white">
-        And make every auction a discovery.
+          And make every auction a discovery.
         </Highlight>
       </motion.h1>
     </HeroHighlight>

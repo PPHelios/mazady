@@ -42,10 +42,7 @@ function NavMenu() {
               </li>
               <ListItem href="/addItem" title="Sell On Mazady" />
               <ListItem href="/" title="Buy On Mazady" />
-              <ListItem
-                href="/"
-                title="How Mazady works"
-              />
+              <ListItem href="/" title="How Mazady works" />
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

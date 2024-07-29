@@ -56,7 +56,7 @@ const Carousel = forwardRef<
 >(
   (
     {
-      carouselOptions={},
+      carouselOptions = {},
       orientation = "horizontal",
       dir,
       plugins,

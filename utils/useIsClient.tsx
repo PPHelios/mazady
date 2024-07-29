@@ -9,7 +9,7 @@ function useIsClient() {
     if (typeof window !== "undefined") {
       setIsClient(true);
     }
-  },[typeof window]);
+  }, [typeof window]);
   return isClient;
 }
 

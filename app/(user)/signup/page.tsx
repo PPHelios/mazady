@@ -1,17 +1,68 @@
 "use client";
-import React from "react";
-import { Label } from "@/components/ui/label";
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
+import { BottomGradient } from "@/components/ui/FormElements";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { login } from "@/lib/features/auth/authSlice";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
-  BottomGradient,
-  LabelInputContainer,
-} from "@/components/ui/FormElements";
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
+const formSchema = z
+  .object({
+    firstname: z.string().min(2).max(20),
+    lastname: z.string().min(2).max(20),
+    email: z.string().email().min(2).max(20),
+    password: z
+      .string()
+      .min(2)
+      .max(20)
+      .refine(
+        (value) =>
+          /^(?!.*[\s])(?=.*[a-z ء-ي A-Z])(?=.*[0-9 ٠-۹]).{6,20}$/.test(value),
+        { message: "Not a valid password" },
+      ),
+    rePassword: z.string().min(2).max(20),
+  })
+  .refine((data) => data.password === data.rePassword, {
+    message: "Password doesn't match",
+    path: ["password"], // path of error
+  });
 export default function Signup() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    dispatch(login());
+    router.push("/");
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn, router]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      rePassword: "",
+    },
+  });
   return (
     <main
       className="mx-auto mt-8 w-full max-w-md rounded-none bg-white p-4
@@ -23,51 +74,118 @@ export default function Signup() {
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Signup a new account to enjoy mazady
       </p>
-
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div
-          className="mb-4 flex flex-col space-y-2 md:flex-row md:space-x-2
-            md:space-y-0"
-        >
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="First name" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Last name" type="text" />
-          </LabelInputContainer>
-        </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="example@mazady.com" type="email" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
-          <Label htmlFor="rePassword">Re-enter your password</Label>
-          <Input id="rePassword" placeholder="••••••••" type="rePassword" />
-        </LabelInputContainer>
-
-        <button
-          className="group/btn relative block h-10 w-full rounded-md
-            bg-orange-600 text-white
-            shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]
-            hover:bg-orange-400/70
-            dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Sign up &rarr;
-          <BottomGradient />
-        </button>
-
-        <div
-          className="my-8 h-px w-full bg-gradient-to-r from-transparent
-            via-neutral-300 to-transparent dark:via-neutral-700"
-        />
-      </form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="my-8">
+          <FormField
+            control={form.control}
+            name="firstname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First name</FormLabel>
+                <FormControl>
+                  <Input
+                    id="firstname"
+                    placeholder="First name"
+                    type="text"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last name</FormLabel>
+                <FormControl>
+                  <Input
+                    id="lastname"
+                    placeholder="Last name"
+                    type="text"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  This is your public display name.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    id="email"
+                    placeholder="example@mazady.com"
+                    type="email"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    id="password"
+                    placeholder="••••••••"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Password must be 6 characters minimum and contain at least one
+                  number.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="rePassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    id="rePassword"
+                    placeholder="••••••••"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <button
+            className="group/btn relative mt-10 block h-10 w-full rounded-md
+              bg-orange-600 text-white
+              shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]
+              hover:bg-orange-400/70
+              dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            type="submit"
+          >
+            Signup &rarr;
+            <BottomGradient />
+          </button>
+        </form>
+      </Form>
     </main>
   );
 }

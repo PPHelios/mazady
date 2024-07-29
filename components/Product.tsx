@@ -34,7 +34,6 @@ export default function Product({
       timeLeft.minutes === 0 &&
       timeLeft.seconds === 0,
     [
-      endDate,
       timeLeft.days,
       timeLeft.hours,
       timeLeft.minutes,

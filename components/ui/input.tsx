@@ -1,64 +1,101 @@
-// Input component extends from shadcnui - https://ui.shadcn.com/docs/components/input
-"use client";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
+import { Eye, EyeOff, Lock, LucideIcon, LucideProps } from "lucide-react";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  startIcon?: LucideIcon;
+  endIcon?: LucideIcon;
+  iconProps?: LucideProps;
+}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    const radius = 100; // change this to increase the rdaius of the hover effect
-    const [visible, setVisible] = React.useState(false);
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, startIcon, endIcon, iconProps = {}, ...props }, ref) => {
+    const [show, setShow] = React.useState(false);
+    const StartIcon = startIcon;
+    const EndIcon = endIcon;
+    const { className: iconClassName, ...iconRest } = iconProps;
 
-    let mouseX = useMotionValue(0);
-    let mouseY = useMotionValue(0);
-
-    function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-      let { left, top } = currentTarget.getBoundingClientRect();
-
-      mouseX.set(clientX - left);
-      mouseY.set(clientY - top);
+    if (type === "password") {
+      return (
+        <div className="relative w-full">
+          <div className="absolute left-1.5 top-1/2 -translate-y-1/2 transform">
+            <Lock
+              size={18}
+              className={cn("text-muted-foreground", iconClassName)}
+              {...iconRest}
+            />
+          </div>
+          <input
+            autoComplete="off"
+            type={!show ? type : "text"}
+            className={cn(
+              `flex h-10 w-full rounded-md border border-input bg-background
+              px-8 py-2 text-sm ring-offset-background file:border-0
+              file:bg-transparent file:text-sm file:font-medium
+              placeholder:text-muted-foreground focus-visible:outline-none
+              focus-visible:ring-1 focus-visible:ring-ring
+              focus-visible:ring-offset-0 disabled:cursor-not-allowed
+              disabled:opacity-50`,
+              className,
+            )}
+            ref={ref}
+            {...props}
+          />
+          <button
+            onClick={() => setShow((prev) => !prev)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 transform"
+            type="button"
+          >
+            {show ? (
+              <Eye className="stroke-slate-700/70" size={18} />
+            ) : (
+              <EyeOff className="stroke-slate-700/70" size={18} />
+            )}
+          </button>
+        </div>
+      );
     }
+
     return (
-      <motion.div
-        style={{
-          background: useMotionTemplate`
-        radial-gradient(
-          ${visible ? radius + "px" : "0px"} circle at ${mouseX}px ${mouseY}px,
-          var(--orange-500),
-          transparent 80%
-        )
-      `,
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-        className="group/input rounded-lg p-[2px] transition duration-300"
-      >
+      <div className="relative w-full">
+        {StartIcon && (
+          <div className="absolute left-1.5 top-1/2 -translate-y-1/2 transform">
+            <StartIcon
+              size={18}
+              className={cn("text-muted-foreground", iconClassName)}
+              {...iconRest}
+            />
+          </div>
+        )}
         <input
           type={type}
           className={cn(
-            `dark:placeholder-text-neutral-600 duration-400 flex h-10 w-full
-            rounded-md border-none bg-blue-100 px-3 py-2 text-sm text-black
-            shadow-input transition file:border-0 file:bg-transparent
-            file:text-sm file:font-medium placeholder:text-neutral-600
-            focus-visible:outline-none focus-visible:ring-[2px]
-            focus-visible:ring-neutral-400 disabled:cursor-not-allowed
-            disabled:opacity-50 group-hover/input:shadow-none dark:bg-zinc-800
-            dark:text-white dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
-            dark:placeholder:text-neutral-400
-            dark:focus-visible:ring-neutral-600`,
+            `flex h-10 w-full rounded-md border border-input bg-background px-4
+            py-2 text-sm ring-offset-background file:border-0
+            file:bg-transparent file:text-sm file:font-medium
+            placeholder:text-muted-foreground focus-visible:outline-none
+            focus-visible:ring-1 focus-visible:ring-ring
+            focus-visible:ring-offset-0 disabled:cursor-not-allowed
+            disabled:opacity-50`,
+            startIcon ? "pl-8" : "",
+            endIcon ? "pr-8" : "",
             className,
           )}
           ref={ref}
           {...props}
         />
-      </motion.div>
+        {EndIcon && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 transform">
+            <EndIcon
+              className={cn("text-muted-foreground", iconClassName)}
+              {...iconRest}
+              size={18}
+            />
+          </div>
+        )}
+      </div>
     );
   },
 );
-Input.displayName = "Input";
-
-export { Input };

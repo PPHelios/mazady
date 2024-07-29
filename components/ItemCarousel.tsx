@@ -33,8 +33,8 @@ const ItemCarousel = ({ pics }: { pics: string[] }) => {
             </CarouselMainContainer>
           </div>
           <CarouselThumbsContainer
-            className="flex w-screen basis-1/4 flex-row overflow-hidden
-              md:block md:h-60 md:w-auto"
+            className="flex w-screen basis-1/4 flex-row overflow-hidden md:block
+              md:h-60 md:w-auto"
           >
             {pics.map((pic, index) => (
               <SliderThumbItem
