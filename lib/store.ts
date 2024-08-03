@@ -9,13 +9,19 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import authSlice from "./features/auth/authSlice";
+import { AsyncEncryptStorage } from "encrypt-storage";
+export const encryptStorage = new AsyncEncryptStorage(
+  process.env.NEXT_PUBLIC_SECRET_KEY ?? "",
+  {
+    stateManagementUse: true,
+  },
+);
 
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
+  storage: encryptStorage,
 };
 
 const rootReducer = combineReducers({

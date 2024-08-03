@@ -14,9 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { BottomGradient } from "@/components/ui/FormElements";
-import { login } from "@/lib/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useRouter } from "next/navigation";
+import { loginUser } from "@/lib/features/auth/authSlice";
+import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 const formSchema = z.object({
   email: z.string().email().min(2).max(20),
   password: z.string().min(2).max(20),
@@ -25,11 +27,18 @@ const formSchema = z.object({
 export const dynamic = "force-dynamic";
 
 export default function Login() {
+  const [resError, setResError] = React.useState("");
   const dispatch = useAppDispatch();
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    dispatch(login());
-    router.push("/");
+  const { user, loading, isLoggedIn } = useAppSelector((state) => state.auth);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const response = await dispatch(loginUser(values)).unwrap();
+      console.log(response);
+      router.push("/");
+    } catch (err: any) {
+      setResError(err);
+      console.log(err);
+    }
   };
   const router = useRouter();
   useEffect(() => {
@@ -40,10 +49,11 @@ export default function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "test@ko.com",
+      password: "koko123",
     },
   });
+  // console.log(loading, user, isLoggedIn);
   return (
     <main
       className="mx-auto mt-8 w-full max-w-md rounded-none bg-white p-4
@@ -100,20 +110,24 @@ export default function Login() {
               </FormItem>
             )}
           />
-          <button
-            className="group/btn relative mt-10 block h-10 w-full rounded-md
+          {resError && <div className="mt-10 text-red-500">{resError}</div>}
+          <Button
+            disabled={loading}
+            className="group/btn relative mt-2 block h-10 w-full rounded-md
               bg-orange-600 text-white
               shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]
               hover:bg-orange-400/70
               dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
-            Login &rarr;
-            <BottomGradient />
-          </button>
+            <div className="flex items-center justify-center">
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Login &rarr;
+            </div>
+          </Button>
+          <BottomGradient />
         </form>
       </Form>
-
       <div
         className="my-8 h-px w-full bg-gradient-to-r from-transparent
           via-neutral-300 to-transparent dark:via-neutral-700"

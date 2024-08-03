@@ -5,7 +5,8 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import StoreProvider from "./StoreProvider";
+import dynamic from 'next/dynamic';  
+const StoreProvider = dynamic(() => import('./StoreProvider'), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"] });
 

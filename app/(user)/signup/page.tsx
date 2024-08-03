@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { BottomGradient } from "@/components/ui/FormElements";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { login } from "@/lib/features/auth/authSlice";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,11 +16,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Loader2 } from "lucide-react";
+import { signupUser } from "@/lib/features/auth/authSlice";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z
   .object({
-    firstname: z.string().min(2).max(20),
-    lastname: z.string().min(2).max(20),
+    firstName: z.string().min(2).max(20),
+    lastName: z.string().min(2).max(20),
     email: z.string().email().min(2).max(20),
     password: z
       .string()
@@ -39,14 +41,38 @@ const formSchema = z
     path: ["password"], // path of error
   });
 export default function Signup() {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const [resError, setResError] = React.useState("");
   const dispatch = useAppDispatch();
-  const router = useRouter();
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    dispatch(login());
-    router.push("/");
-  };
+  const { user, loading, isLoggedIn } = useAppSelector((state) => state.auth);
 
+  const router = useRouter();
+  const onSubmit = async ({
+    firstName,
+    lastName,
+    email,
+    password,
+    rePassword,
+  }: z.infer<typeof formSchema>) => {
+    try {
+      const response = await dispatch(
+        signupUser({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+          rePassword,
+        }),
+      ).unwrap();
+      router.push("/");
+      console.log(response);
+    } catch (err: any) {
+      console.log(err);
+      setResError(err);
+    }
+
+    // router.push("/");
+  };
+  // console.log(loading, user, isLoggedIn);
   useEffect(() => {
     if (isLoggedIn) {
       router.push("/");
@@ -54,13 +80,13 @@ export default function Signup() {
   }, [isLoggedIn, router]);
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    // resolver: zodResolver(formSchema),
     defaultValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      rePassword: "",
+      firstName: "dfsdf",
+      lastName: "dfsd",
+      email: "test@ko.com",
+      password: "koko123",
+      rePassword: "koko123",
     },
   });
   return (
@@ -78,13 +104,13 @@ export default function Signup() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="my-8">
           <FormField
             control={form.control}
-            name="firstname"
+            name="firstName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>First name</FormLabel>
                 <FormControl>
                   <Input
-                    id="firstname"
+                    id="firstName"
                     placeholder="First name"
                     type="text"
                     {...field}
@@ -96,13 +122,13 @@ export default function Signup() {
           />
           <FormField
             control={form.control}
-            name="lastname"
+            name="lastName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Last name</FormLabel>
                 <FormControl>
                   <Input
-                    id="lastname"
+                    id="lastName"
                     placeholder="Last name"
                     type="text"
                     {...field}
@@ -173,17 +199,22 @@ export default function Signup() {
               </FormItem>
             )}
           />
-          <button
-            className="group/btn relative mt-10 block h-10 w-full rounded-md
+          {resError && <div className="mt-10 text-red-500">{resError}</div>}
+          <Button
+            disabled={loading}
+            className="group/btn relative mt-2 block h-10 w-full rounded-md
               bg-orange-600 text-white
               shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]
               hover:bg-orange-400/70
               dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
-            Signup &rarr;
-            <BottomGradient />
-          </button>
+            <div className="flex items-center justify-center">
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Signup &rarr;
+            </div>
+          </Button>
+          <BottomGradient />
         </form>
       </Form>
     </main>

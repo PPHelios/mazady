@@ -11,14 +11,14 @@ import { ThemeToggler } from "./ThemeToggler";
 import ResSheet from "./ResSheet";
 import NavMenu from "./NavMenu";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { logout } from "@/lib/features/auth/authSlice";
+import { logoutUser } from "@/lib/features/auth/authSlice";
 export function Navbar() {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
   return (
     <nav
       className="items-center justify-between gap-5 bg-surface p-2 md:flex
-        md:flex-row md:px-5 md:py-6"
+        md:flex-col md:px-5 md:py-6  lg:flex-row"
     >
       <div
         className="pointer-events-auto z-10 flex flex-row items-center
@@ -39,7 +39,7 @@ export function Navbar() {
         <SearchBox />
         {isLoggedIn ? (
           <Button
-            onClick={() => dispatch(logout())}
+            onClick={() => dispatch(logoutUser())}
             variant="secondary"
             className="dark:bg-black dark:hover:bg-slate-800"
           >
