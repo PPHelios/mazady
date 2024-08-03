@@ -43,7 +43,7 @@ const formSchema = z
 export default function Signup() {
   const [resError, setResError] = React.useState("");
   const dispatch = useAppDispatch();
-  const { user, loading, isLoggedIn } = useAppSelector((state) => state.auth);
+  const { loading, isLoggedIn } = useAppSelector((state) => state.auth);
 
   const router = useRouter();
   const onSubmit = async ({
@@ -80,7 +80,7 @@ export default function Signup() {
   }, [isLoggedIn, router]);
 
   const form = useForm<z.infer<typeof formSchema>>({
-    // resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       firstName: "dfsdf",
       lastName: "dfsd",
@@ -210,7 +210,7 @@ export default function Signup() {
             type="submit"
           >
             <div className="flex items-center justify-center">
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {loading && <Loader2 className="mr-2 size-4 animate-spin" />}
               Signup &rarr;
             </div>
           </Button>

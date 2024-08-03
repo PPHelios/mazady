@@ -18,7 +18,7 @@ export function Navbar() {
   return (
     <nav
       className="items-center justify-between gap-5 bg-surface p-2 md:flex
-        md:flex-col md:px-5 md:py-6  lg:flex-row"
+        md:flex-col md:px-5 md:py-6 lg:flex-row"
     >
       <div
         className="pointer-events-auto z-10 flex flex-row items-center

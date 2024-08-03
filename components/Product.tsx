@@ -33,12 +33,7 @@ export default function Product({
       timeLeft.hours === 0 &&
       timeLeft.minutes === 0 &&
       timeLeft.seconds === 0,
-    [
-      timeLeft.days,
-      timeLeft.hours,
-      timeLeft.minutes,
-      timeLeft.seconds,
-    ],
+    [timeLeft.days, timeLeft.hours, timeLeft.minutes, timeLeft.seconds],
   );
   return (
     <WobbleCard
