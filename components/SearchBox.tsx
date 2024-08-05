@@ -39,14 +39,14 @@ const statuses: Status[] = [
     link: "cars",
   },
   {
-    value: "clothes",
-    label: "Clothes",
-    link: "clothes",
+    value: "fashion",
+    label: "Fashion",
+    link: "fashion",
   },
   {
-    value: "furniture",
-    label: "Furniture",
-    link: "furniture",
+    value: "home",
+    label: "Home",
+    link: "home",
   },
   {
     value: "sport Equipments",

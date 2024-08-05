@@ -72,10 +72,10 @@ export const projects = [
   },
   {
     id: 2,
-    title: "Clothes",
+    title: "Fashion",
     description:
       "A multinational technology company that specializes in Internet-related services and products.",
-    link: "clothes",
+    link: "fashion",
     image: "clothes.webp",
     endDate: "2024-07-20T08:23:00.000Z",
     lastBid: 650,
@@ -83,10 +83,10 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Furniture",
+    title: "Home",
     description:
       "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-    link: "furniture",
+    link: "home",
     image: "furniture.webp",
     endDate: "2024-10-15T05:22:00.000Z",
     lastBid: 1450,

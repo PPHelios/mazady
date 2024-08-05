@@ -25,7 +25,7 @@ export const apiRequest = async (url: string, method: string, data?: any) => {
   } else {
     // handle other request
     const res = await fetch(url, {
-      method: method,
+      method,
       credentials: "include",
       headers: {
         Accept: "application/json",

@@ -1,82 +1,258 @@
 "use client";
-
 import ImagesUploader from "@/components/ImagesUploader";
-import React, { useState } from "react";
-import {
-  BottomGradient,
-  LabelInputContainer,
-} from "@/components/ui/FormElements";
-import { Label } from "@/components/ui/label";
+import React from "react";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { BottomGradient } from "@/components/ui/FormElements";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Textarea } from "@/components/ui/textarea";
 import DatePicker from "@/components/DatePicker";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { addNewItem } from "@/lib/features/auth/addItem/addItemSlice";
+
+const formSchema = z.object({
+  item_name: z.string().min(10).max(20),
+  item_desc: z.string().min(20).max(2000),
+  item_price: z.preprocess(
+    (val) => {
+      if (val === "") {
+        return null; // Treat empty string as null
+      }
+      return val;
+    },
+    z.union([
+      z.string().refine(() => 0, {
+        message: "Field is required",
+      }),
+      z.coerce.number().int().gte(1).lte(1000000000),
+    ]),
+  ),
+  category: z.union([
+    z.string().refine(() => "", {
+      message: "Field is required",
+    }),
+    z.literal("cars"),
+    z.literal("art"),
+    z.literal("electronics"),
+    z.literal("fashion"),
+    z.literal("sports"),
+    z.literal("home"),
+    z.literal("other"),
+  ]),
+  item_expiration_date: z.date().min(new Date()),
+  images: z.array(z.any()).min(1).max(5),
+});
 
 function AddItem() {
-  const [files, setFiles] = useState(null);
-  const [date, setDate] = React.useState<Date>(new Date());
-  console.log("date", date);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const [resError, setResError] = React.useState("");
+  const { user } = useAppSelector((state) => state.auth);
+  const { loading } = useAppSelector((state) => state.addItem);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      setResError("");
+      const formData = new FormData();
+      formData.append("item_name", values.item_name);
+      formData.append("item_price", values.item_price.toString());
+      formData.append("item_desc", values.item_desc);
+      formData.append("category", values.category);
+      formData.append("owner", user?._id);
+      formData.append(
+        "item_expiration_date",
+        values.item_expiration_date.toISOString(),
+      );
+      if (values.images) {
+        values.images.forEach((file) => {
+          formData.append("images", file);
+        });
+      }
+      await dispatch(addNewItem(formData)).unwrap();
+      // console.log(response);
+      router.push("/");
+    } catch (err: any) {
+      setResError(err.message);
+      console.log(err);
+    }
   };
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      item_name: "",
+      item_desc: "",
+      item_price: "",
+      category: "",
+      item_expiration_date: new Date(),
+      images: [],
+    },
+  });
   return (
     <main>
       <div
         className="mx-auto mt-8 w-full max-w-md rounded-none bg-white p-4
           shadow-input dark:bg-black md:rounded-2xl md:p-8"
       >
-        <h1 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
+        <h1
+          className="text-center text-xl font-bold text-neutral-800
+            dark:text-neutral-200"
+        >
           Add a new item
         </h1>
-
-        <form className="my-8" onSubmit={handleSubmit}>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="itemName">Item name</Label>
-            <Input id="itemName" placeholder="Enter Item Name" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="itemDesc">Item description</Label>
-            <Textarea
-              id="itemDesc"
-              placeholder="Enter Item Descriptdescription"
-              className="bg-blue-100 placeholder:text-neutral-600
-                dark:bg-zinc-800 dark:placeholder:text-neutral-400"
-            />
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="itemPrice">Item price</Label>
-            <Input
-              id="itemPrice"
-              placeholder="Enter Item price"
-              type="number"
-            />
-          </LabelInputContainer>
-          <div className="my-4">
-            <Label htmlFor="endDate">Bid expiration date</Label>
-            <div className="flex items-center justify-center">
-              <DatePicker date={date} setDate={setDate} />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center">
-            <ImagesUploader files={files} setFiles={setFiles} />
-          </div>
-          <button
-            className="group/btn relative mt-8 block h-10 w-full rounded-md
-              bg-orange-600 text-white
-              shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]
-              hover:bg-orange-400/70
-              dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-            type="submit"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="my-8 flex flex-col justify-start gap-8"
           >
-            Submit &rarr;
+            <FormField
+              control={form.control}
+              name="item_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First name</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="item_name"
+                      placeholder="Item name"
+                      type="text"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="item_desc"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First name</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      id="item_desc"
+                      placeholder="Enter item description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="item_price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First name</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="item_price"
+                      placeholder="Item price"
+                      type="number"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>category</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select item category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="cars">Cars</SelectItem>
+                      <SelectItem value="electronics">Electronics</SelectItem>
+                      <SelectItem value="fashion">Fashion</SelectItem>
+                      <SelectItem value="home">Home</SelectItem>
+                      <SelectItem value="sports">Sports Equipments</SelectItem>
+                      <SelectItem value="art">Art</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="item_expiration_date"
+              render={({ field: { onChange, value } }) => (
+                <FormItem>
+                  <FormLabel>Ad. expiration date</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center justify-center">
+                      <DatePicker date={value} setDate={onChange} />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="images"
+              render={({ field: { onChange, value } }) => (
+                <FormItem>
+                  <FormLabel>Item images</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center justify-center">
+                      <ImagesUploader images={value} setImages={onChange} />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {resError && <div className="mt-10 text-red-500">{resError}</div>}
+            <Button
+              disabled={loading}
+              className="group/btn relative mt-2 block h-10 w-full rounded-md
+                bg-orange-600 text-white
+                shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]
+                hover:bg-orange-400/70
+                dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+              type="submit"
+            >
+              <div className="flex items-center justify-center">
+                {loading && <Loader2 className="mr-2 size-4 animate-spin" />}
+                Add Item &rarr;
+              </div>
+            </Button>
             <BottomGradient />
-          </button>
-          <div
-            className="my-8 h-px w-full bg-gradient-to-r from-transparent
-              via-neutral-300 to-transparent dark:via-neutral-700"
-          />
-        </form>
+          </form>
+        </Form>
       </div>
     </main>
   );

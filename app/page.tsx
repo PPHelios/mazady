@@ -1,30 +1,9 @@
-"use client";
 import Categories from "@/components/Categories";
 import CTAButton from "@/components/CTAButton";
 import { TextHighlight } from "@/components/TextHighlight";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
-  const handleTest = async () => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-      }
-      const res = await response.json();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-between px-1
@@ -43,7 +22,6 @@ export default function Home() {
           <TextHighlight />
         </div>
       </div>
-      <Button onClick={handleTest}>test</Button>
       <Link href="/addItem">
         <div className="my-16">
           <CTAButton />
