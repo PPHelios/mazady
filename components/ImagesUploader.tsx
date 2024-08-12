@@ -21,17 +21,20 @@ function ImagesUploader({
       value={images}
       onValueChange={setImages}
       dropzoneOptions={dropZoneConfig}
-      className="relative max-w-xs space-y-1"
+      className="relative w-full space-y-1"
     >
       <FileInput>
         <div
           className="flex h-32 w-full items-center justify-center rounded-md
             border bg-slate-300 dark:bg-zinc-800"
         >
-          <p className="text-gray-900 dark:text-white">Drop images here</p>
+          <p className="text-center text-gray-900 dark:text-white">
+            Click to pick or <br />
+            Drop images
+          </p>
         </div>
       </FileInput>
-      <FileUploaderContent className="flex flex-row items-center gap-2">
+      <FileUploaderContent className="flex flex-row flex-wrap items-center gap-2">
         {images &&
           images.length > 0 &&
           images?.map((file: File, i: number) => {

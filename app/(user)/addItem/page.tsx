@@ -1,6 +1,6 @@
 "use client";
 import ImagesUploader from "@/components/ImagesUploader";
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,7 +27,7 @@ import DatePicker from "@/components/DatePicker";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { addNewItem } from "@/lib/features/auth/addItem/addItemSlice";
+import { addNewItem } from "@/lib/features/addItem/addItemSlice";
 
 const formSchema = z.object({
   item_name: z.string().min(10).max(20),
@@ -68,7 +68,11 @@ function AddItem() {
   const { loading } = useAppSelector((state) => state.addItem);
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setResError("");
@@ -128,7 +132,7 @@ function AddItem() {
               name="item_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First name</FormLabel>
+                  <FormLabel>Ad title</FormLabel>
                   <FormControl>
                     <Input
                       id="item_name"
@@ -146,7 +150,7 @@ function AddItem() {
               name="item_desc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First name</FormLabel>
+                  <FormLabel>Item description</FormLabel>
                   <FormControl>
                     <Textarea
                       id="item_desc"
@@ -163,7 +167,7 @@ function AddItem() {
               name="item_price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First name</FormLabel>
+                  <FormLabel>Item price</FormLabel>
                   <FormControl>
                     <Input
                       id="item_price"

@@ -22,11 +22,18 @@ export default function Home() {
           <TextHighlight />
         </div>
       </div>
-      <Link href="/addItem">
-        <div className="my-16">
-          <CTAButton />
-        </div>
-      </Link>
+      <div className="relative w-full">
+        <Link href="/addItem">
+          <div
+            className="absolute -top-[20rem] left-0 z-[-1] h-[25rem] w-screen
+              translate-y-1/2 bg-gradient-to-r from-transparent via-surface
+              to-transparent dark:bg-gradient-to-r dark:via-blue-950 md:-left-5"
+          />
+          <div className="my-16">
+            <CTAButton />
+          </div>
+        </Link>
+      </div>
       <Categories />
     </main>
   );

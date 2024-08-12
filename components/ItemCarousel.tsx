@@ -24,7 +24,7 @@ const ItemCarousel = ({ pics }: { pics: string[] }) => {
                     rounded-md border border-muted"
                 >
                   <img
-                    src={`/${pic}`}
+                    src={pic}
                     alt={pic}
                     className="size-full object-cover"
                   />
@@ -47,7 +47,7 @@ const ItemCarousel = ({ pics }: { pics: string[] }) => {
                     rounded-md border border-muted bg-background"
                 >
                   <img
-                    src={`/${pic}`}
+                    src={pic}
                     alt={pic}
                     className="size-full object-cover"
                   />

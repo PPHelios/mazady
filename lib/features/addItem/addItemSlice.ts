@@ -1,3 +1,4 @@
+import { Item } from "@/types/types";
 import {
   createSlice,
   createAsyncThunk,
@@ -5,13 +6,13 @@ import {
 } from "@reduxjs/toolkit";
 
 interface ApiResponse {
-  savedItem: any;
+  savedItem: Item;
 }
 type AddItemPayload = any;
 
 const initialState = {
   loading: false,
-  savedItem: {} as any,
+  savedItem: {} ,
 };
 
 export const addNewItem = createAsyncThunk<
@@ -28,10 +29,12 @@ export const addNewItem = createAsyncThunk<
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.log(errorData);
       return rejectWithValue(errorData.message);
     }
     return response.json();
   } catch (err: any) {
+    console.log(err);
     return rejectWithValue(err.message);
   }
 });

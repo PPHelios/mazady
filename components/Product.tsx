@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo } from "react";
 import { WobbleCard } from "./ui/wobble-card";
 import { Button } from "./ui/button";
@@ -8,25 +9,28 @@ const CountDownTimer = dynamic(() => import("./CountDownTimer"), {
   ssr: false,
 });
 type Props = {
-  id: number;
-  title: string;
-  image: string;
-  link: string;
-  endDate: string;
-  lastBid: number;
+  _id: string | number;
+  item_name: string;
+  imageUrls: string[];
+  item_expiration_date: string;
+  item_price: number;
+  category: string;
+  myAds?: boolean;
 };
 export default function Product({
-  id,
-  title,
-  image,
-  link,
-  endDate,
-  lastBid,
+  _id,
+  item_name,
+  imageUrls,
+  item_expiration_date,
+  item_price,
+  category,
+  myAds = false,
 }: Props) {
   const router = useRouter();
-  const timeLeft =
-    useMemo(() => timeDiffFromNow(endDate), [endDate]) ||
-    timeDiffFromNow(endDate);
+  const timeLeft = useMemo(
+    () => timeDiffFromNow(item_expiration_date),
+    [item_expiration_date],
+  );
   const timeEnded = useMemo(
     () =>
       timeLeft.days === 0 &&
@@ -37,15 +41,15 @@ export default function Product({
   );
   return (
     <WobbleCard
-      containerClassName="h-[340px] border border-gray-200 cursor-pointer pointer-events-auto "
-      onClick={() => router.push(`/${link}/${id}`)}
+      containerClassName="h-[380px] max-w-[400px] border-2 border-gray-500 dark:border-gray-200 cursor-pointer pointer-events-auto "
+      onClick={() => router.push(`/${category}/${_id}`)}
     >
-      <div key={title} className="flex h-full flex-col justify-between">
+      <div key={item_name} className="flex h-full flex-col justify-between">
         <div>
           <div className="h-[180px] overflow-hidden">
             <img
-              src={`/${image}`}
-              alt={title}
+              src={imageUrls[0]}
+              alt={item_name}
               className="w-full rounded-2xl object-cover"
             />
           </div>
@@ -54,16 +58,15 @@ export default function Product({
               className="max-w-80 text-balance text-left text-base font-semibold
                 tracking-[-0.015em] md:text-xl lg:text-3xl"
             >
-              {title}
+              {item_name}
             </h2>
             {/* <p className="mt-4 line-clamp-3 max-w-[26rem] text-left text-base/6">
               {description}
             </p> */}
           </div>
-          <div></div>
-          <div className="min-h-9">
+          <div className="my-5 min-h-9">
             <CountDownTimer
-              endDate={endDate}
+              endDate={item_expiration_date}
               activeStyle={{ color: "darkRed", fontSize: "1.2rem" }}
               endedStyle={{ color: "darkRed", fontSize: "1.2rem" }}
               className="mx-5 bg-slate-200 py-1 text-xl font-semibold"
@@ -74,7 +77,7 @@ export default function Product({
               className="flex h-10 w-1/2 items-center justify-center rounded-sm
                 rounded-ee-none rounded-se-none border bg-background text-center"
             >
-              Last Bid: {lastBid}$
+              Last Bid: {item_price}$
             </div>
             <Button
               className="pointer-events-auto z-10 w-1/2 cursor-pointer
@@ -84,9 +87,9 @@ export default function Product({
                 e.stopPropagation();
                 alert("Bid added");
               }}
-              disabled={timeEnded}
+              disabled={timeEnded || myAds}
             >
-              Bid {lastBid + 50}$
+              Bid {item_price + 50}$
             </Button>
           </div>
         </div>

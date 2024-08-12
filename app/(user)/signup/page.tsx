@@ -19,6 +19,7 @@ import {
 import { Loader2 } from "lucide-react";
 import { signupUser } from "@/lib/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z
   .object({
@@ -44,7 +45,7 @@ export default function Signup() {
   const [resError, setResError] = React.useState("");
   const dispatch = useAppDispatch();
   const { loading, isLoggedIn } = useAppSelector((state) => state.auth);
-
+  const { toast } = useToast();
   const router = useRouter();
   const onSubmit = async ({
     firstName,
@@ -54,7 +55,7 @@ export default function Signup() {
     rePassword,
   }: z.infer<typeof formSchema>) => {
     try {
-      const response = await dispatch(
+      await dispatch(
         signupUser({
           first_name: firstName,
           last_name: lastName,
@@ -63,8 +64,12 @@ export default function Signup() {
           rePassword,
         }),
       ).unwrap();
+      toast({
+        title: "Signup successful",
+        description: `Welcome ${firstName} ${lastName}`,
+      });
       router.push("/");
-      console.log(response);
+      // console.log(response);
     } catch (err: any) {
       console.log(err);
       setResError(err);

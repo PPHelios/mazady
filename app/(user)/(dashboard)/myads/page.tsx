@@ -1,35 +1,63 @@
-"use client";
-import { Button } from "@/components/ui/button";
 import React from "react";
+import { cookies } from "next/headers";
+import { Item } from "@/types/types";
+import Product from "@/components/Product";
+import { Metadata } from "next";
 
-function page() {
-  const handleTest = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/dashboard/allAds`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-      }
-      const res = await response.json();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+export const metadata: Metadata = {
+  title: "My ads",
+};
+const getData = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/myAds`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookies().toString(),
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log(errorData);
+      return errorData.message;
     }
-  };
+    const res = await response.json();
+    return res;
+  } catch (error: any) {
+    console.log(error);
+    return error.message;
+  }
+};
+export default async function page() {
+  const data = (await getData()) ?? [];
+  // console.log(data);
   return (
     <main className="mt-5 flex flex-col items-center justify-center gap-5">
-      <Button onClick={handleTest}>test</Button>
+      <h1 className="text-bold text-3xl md:text-5xl">My Ads</h1>
+      {data && data?.ads.length === 0 ? (
+        <h1>No ads</h1>
+      ) : (
+        <div
+          className="mx-auto flex w-full max-w-7xl flex-wrap items-center
+            justify-center gap-4 px-3 py-8 md:px-28"
+        >
+          {data &&
+            data?.ads.length > 0 &&
+            data.ads.map((item: Item) => (
+              <Product
+                key={item._id}
+                _id={item._id}
+                item_name={item.item_name}
+                item_price={item.item_price}
+                imageUrls={item.imageUrls}
+                category={item.category}
+                item_expiration_date={item.item_expiration_date}
+                myAds={true}
+              />
+            ))}
+        </div>
+      )}
     </main>
   );
 }
-
-export default page;

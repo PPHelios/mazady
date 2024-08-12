@@ -11,7 +11,8 @@ import {
 } from "redux-persist";
 import authSlice from "./features/auth/authSlice";
 import { AsyncEncryptStorage } from "encrypt-storage";
-import addItemSlice from "./features/auth/addItem/addItemSlice";
+import addItemSlice from "./features/addItem/addItemSlice";
+import { searchSlice } from "./features/search/searchSlice";
 export const encryptStorage = new AsyncEncryptStorage(
   process.env.NEXT_PUBLIC_SECRET_KEY ?? "",
   {
@@ -28,6 +29,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authSlice,
   addItem: addItemSlice,
+  search: searchSlice,
 });
 
 const makeConfiguredStore = () => {

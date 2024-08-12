@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/features/auth/authSlice";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+
 const formSchema = z.object({
   email: z.string().email().min(2).max(20),
   password: z.string().min(2).max(20),
@@ -30,10 +32,16 @@ export default function Login() {
   const [resError, setResError] = React.useState("");
   const dispatch = useAppDispatch();
   const { loading, isLoggedIn } = useAppSelector((state) => state.auth);
+  const { toast } = useToast();
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await dispatch(loginUser(values)).unwrap();
-      console.log(response);
+      toast({
+        title: "Login successful",
+        description: `Welcome back ${response.first_name} ${response.last_name}`,
+      });
+      // console.log(response);
       router.push("/");
     } catch (err: any) {
       setResError(err);

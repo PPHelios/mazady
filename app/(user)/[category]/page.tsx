@@ -1,13 +1,39 @@
 "use client";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Product from "@/components/Product";
 import { projects } from "@/data";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { searchCategory } from "@/lib/features/search/searchSlice";
+import { Item } from "@/types/types";
+import LoaderComponent from "@/components/LoaderComponent";
 function Category() {
   const params = useParams<{ category: string }>();
   const categoryInfo = projects.find(
     (project) => project.link === params.category,
   );
+  const [ads, setAds] = React.useState<Item[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const fetchAds = async () => {
+    try {
+      setLoading(true);
+      const response = await dispatch(
+        searchCategory({ category: params.category }),
+      ).unwrap();
+      setAds(response.ads);
+      setLoading(false);
+    } catch (err: any) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    if (ads.length === 0) {
+      fetchAds();
+    }
+  }, [ads, fetchAds]);
+
   return (
     <main>
       {categoryInfo && (
@@ -16,7 +42,7 @@ function Category() {
             justify-center md:h-[320px] md:w-1/2"
         >
           <h1
-            className="overflow-hidden rounded-full bg-blue-900/40
+            className="overflow-hidden rounded-full bg-gray-800/20
               bg-clip-padding p-10 text-3xl font-bold text-white
               backdrop-blur-md md:text-5xl"
           >
@@ -31,14 +57,17 @@ function Category() {
           />
         </div>
       )}
-      <div
-        className="mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-4 px-3
-          py-8 md:px-28 lg:grid-cols-3"
-      >
-        {projects.map((project) => (
-          <Product key={project.link} {...project} />
-        ))}
-      </div>
+      {loading && <LoaderComponent />}
+      {ads && ads.length > 0 && (
+        <div
+          className="mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-4 px-3
+            py-8 md:px-28 lg:grid-cols-3"
+        >
+          {ads.map((item) => (
+            <Product key={item._id} {...item} />
+          ))}
+        </div>
+      )}
     </main>
   );
 }
