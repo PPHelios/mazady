@@ -34,7 +34,7 @@ export default async function page() {
   // console.log(data);
   return (
     <main className="mt-5 flex flex-col items-center justify-center gap-5">
-      <h1 className="text-bold text-3xl md:text-5xl">My Ads</h1>
+      <h1 className="text-3xl font-bold md:text-5xl">My Ads</h1>
       {data && data?.ads.length === 0 ? (
         <h1>No ads</h1>
       ) : (

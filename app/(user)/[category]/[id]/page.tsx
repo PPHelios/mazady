@@ -17,24 +17,25 @@ function ProductPage() {
   const [ad, setAd] = React.useState<Item | null>(null);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
-  const fetchAds = async () => {
-    try {
-      setLoading(true);
-      const response = await dispatch(
-        searchItemId({ category: params.category, id: params.id }),
-      ).unwrap();
-      setAd(response.ad);
-      setLoading(false);
-    } catch (err: any) {
-      setLoading(false);
-      console.log(err);
-    }
-  };
+
   useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        setLoading(true);
+        const response = await dispatch(
+          searchItemId({ category: params.category, id: params.id }),
+        ).unwrap();
+        setAd(response.ad);
+        setLoading(false);
+      } catch (err: any) {
+        setLoading(false);
+        console.log(err);
+      }
+    };
     if (!ad) {
       fetchAds();
     }
-  }, [ad, fetchAds]);
+  }, [ad, dispatch, params.category, params.id]);
   return (
     <main>
       {loading && <LoaderComponent />}

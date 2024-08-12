@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import Product from "@/components/Product";
 import { projects } from "@/data";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import { searchCategory } from "@/lib/features/search/searchSlice";
 import { Item } from "@/types/types";
 import LoaderComponent from "@/components/LoaderComponent";
@@ -15,24 +15,25 @@ function Category() {
   const [ads, setAds] = React.useState<Item[]>([]);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
-  const fetchAds = async () => {
-    try {
-      setLoading(true);
-      const response = await dispatch(
-        searchCategory({ category: params.category }),
-      ).unwrap();
-      setAds(response.ads);
-      setLoading(false);
-    } catch (err: any) {
-      setLoading(false);
-      console.log(err);
-    }
-  };
+
   useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        setLoading(true);
+        const response = await dispatch(
+          searchCategory({ category: params.category }),
+        ).unwrap();
+        setAds(response.ads);
+        setLoading(false);
+      } catch (err: any) {
+        setLoading(false);
+        console.log(err);
+      }
+    };
     if (ads.length === 0) {
       fetchAds();
     }
-  }, [ads, fetchAds]);
+  }, [ads, dispatch, params.category]);
 
   return (
     <main>

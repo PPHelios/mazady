@@ -8,6 +8,7 @@ import { timeDiffFromNow } from "@/helpers/functions";
 const CountDownTimer = dynamic(() => import("./CountDownTimer"), {
   ssr: false,
 });
+/* eslint-disable*/
 type Props = {
   _id: string | number;
   item_name: string;

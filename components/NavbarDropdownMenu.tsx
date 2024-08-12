@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 import { logoutUser } from "@/lib/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Link from "next/link";

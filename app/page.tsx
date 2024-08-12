@@ -25,7 +25,7 @@ export default function Home() {
       <div className="relative w-full">
         <Link href="/addItem">
           <div
-            className="absolute -top-[20rem] left-0 z-[-1] h-[25rem] w-screen
+            className="absolute -top-80 left-0 z-[-1] h-[25rem] w-screen
               translate-y-1/2 bg-gradient-to-r from-transparent via-surface
               to-transparent dark:bg-gradient-to-r dark:via-blue-950 md:-left-5"
           />
