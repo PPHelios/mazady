@@ -20,22 +20,21 @@ const getData = async () => {
     if (!response.ok) {
       const errorData = await response.json();
       console.log(errorData);
-      return errorData.message;
+      throw new Error(errorData.message);
     }
-    const res = await response.json();
-    return res;
+    return response.json();
   } catch (error: any) {
     console.log(error);
     return error.message;
   }
 };
 export default async function page() {
-  const data = (await getData()) ?? [];
+  const data = (await getData()) ?? null;
   // console.log(data);
   return (
     <main className="mt-5 flex flex-col items-center justify-center gap-5">
       <h1 className="text-3xl font-bold md:text-5xl">My Ads</h1>
-      {data && data?.ads.length === 0 ? (
+      {data && data?.ads && data?.ads.length === 0 ? (
         <h1>No ads</h1>
       ) : (
         <div
@@ -43,6 +42,7 @@ export default async function page() {
             justify-center gap-4 px-3 py-8 md:px-28"
         >
           {data &&
+            data?.ads &&
             data?.ads.length > 0 &&
             data.ads.map((item: Item) => (
               <Product
