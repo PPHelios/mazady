@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { components } from "@/data";
-function NavMenu() {
+function NavbarMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList
@@ -92,4 +92,4 @@ const ListItem = ({ href, title }: { href: string; title: string }) => {
   );
 };
 ListItem.displayName = "ListItem";
-export default NavMenu;
+export default NavbarMenu;

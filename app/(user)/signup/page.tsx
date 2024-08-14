@@ -65,6 +65,7 @@ export default function Signup() {
         }),
       ).unwrap();
       toast({
+        duration: 2000,
         title: "Signup successful",
         description: `Welcome ${firstName} ${lastName}`,
       });

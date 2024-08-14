@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -15,15 +15,25 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Menu } from "lucide-react";
-import { SearchBox } from "./SearchBox";
+import { SearchBox } from "../SearchBox";
 import Link from "next/link";
 import { components } from "@/data";
-import { Button } from "./ui/button";
-import { ThemeToggler } from "./ThemeToggler";
+import { ThemeToggler } from "../ThemeToggler";
+import AuthBtns from "./AuthBtns";
+import { useIsBreakpointActive } from "@/hooks/useIsBreakpointActive";
 
-function ResSheet() {
+function MobileMenu() {
   const [sheetOpen, setSheetOpen] = useState(false);
-
+  const notMobile = useIsBreakpointActive("md");
+const closeSheet = () => setSheetOpen(false)
+  {
+    /* If not mobile close the sheet*/
+  }
+  useEffect(() => {
+    if (notMobile) {
+      setSheetOpen(false);
+    }
+  });
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger className="md:hidden">
@@ -47,28 +57,11 @@ function ResSheet() {
             <Title label="Mazady guide" clasName="text-left mt-5 " />
           </div>
         </div>
+
         <div
-          className="mt-5 flex w-full flex-row items-center justify-center gap-5"
+          className="mt-8 flex w-full flex-col items-start justify-center gap-5"
         >
-          <Link href="/login" legacyBehavior passHref>
-            <Button
-              className="bg-orange-600 hover:bg-orange-400/70 dark:text-white"
-              onClick={() => setSheetOpen(false)}
-            >
-              Login
-            </Button>
-          </Link>
-          <Link href="/signup" legacyBehavior passHref>
-            <Button
-              onClick={() => setSheetOpen(false)}
-              variant="secondary"
-              className="dark:bg-black dark:hover:bg-slate-800"
-            >
-              Signup
-            </Button>
-          </Link>
-        </div>
-        <div className="mt-5 flex w-full flex-row items-center justify-center">
+          <AuthBtns closeSheet={closeSheet} />
           <ThemeToggler />
         </div>
       </SheetContent>
@@ -120,4 +113,4 @@ const MenuContent = ({
     </div>
   );
 };
-export default ResSheet;
+export default MobileMenu;

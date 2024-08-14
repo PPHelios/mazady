@@ -7,6 +7,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { searchCategory } from "@/lib/features/search/searchSlice";
 import { Item } from "@/types/types";
 import LoaderComponent from "@/components/LoaderComponent";
+
 function Category() {
   const params = useParams<{ category: string }>();
   const categoryInfo = projects.find(

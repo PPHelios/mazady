@@ -38,6 +38,7 @@ export default function Login() {
     try {
       const response = await dispatch(loginUser(values)).unwrap();
       toast({
+        duration: 2000,
         title: "Login successful",
         description: `Welcome back ${response.first_name} ${response.last_name}`,
       });

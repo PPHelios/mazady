@@ -3,11 +3,11 @@ import Link from "next/link";
 
 // import { Icons } from "@/components/icons"
 
-import { SearchBox } from "./SearchBox";
-import { ThemeToggler } from "./ThemeToggler";
-import ResSheet from "./ResSheet";
-import NavMenu from "./NavMenu";
-import NavbarDropdownMenu from "./NavbarDropdownMenu";
+import { SearchBox } from "../SearchBox";
+import { ThemeToggler } from "../ThemeToggler";
+import MobileMenu from "./MobileMenu";
+import NavbarMenu from "./NavbarMenu";
+import AuthBtns from "./AuthBtns";
 export function Navbar() {
   return (
     <nav
@@ -18,7 +18,8 @@ export function Navbar() {
         className="pointer-events-auto z-10 flex flex-row items-center
           justify-between gap-5 md:justify-center"
       >
-        <ResSheet />
+        {/* Burger menu for moblies*/}
+        <MobileMenu />
         <Link href="/" passHref>
           <img
             src="/mazady.gif"
@@ -26,12 +27,12 @@ export function Navbar() {
             className="h-[30px] w-[100px] object-cover"
           />
         </Link>
-        <NavMenu />
+        <NavbarMenu />
       </div>
 
       <div className="hidden flex-row items-center justify-center gap-5 md:flex">
         <SearchBox />
-        <NavbarDropdownMenu />
+        <AuthBtns />
         <ThemeToggler />
       </div>
     </nav>
