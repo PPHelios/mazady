@@ -7,4 +7,4 @@ export type Item = {
   user_id: string;
   item_expiration_date: string;
   imageUrls: string[];
-}
+};

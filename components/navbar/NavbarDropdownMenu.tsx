@@ -44,7 +44,7 @@ export default function NavbarDropdownMenu({
   };
   return (
     <>
-      {/* Collabsible menu for moblies*/}
+      {/* Collabsible menu for moblies */}
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>

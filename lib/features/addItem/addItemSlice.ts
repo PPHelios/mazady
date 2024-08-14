@@ -12,7 +12,7 @@ type AddItemPayload = any;
 
 const initialState = {
   loading: false,
-  savedItem: {} ,
+  savedItem: {},
 };
 
 export const addNewItem = createAsyncThunk<

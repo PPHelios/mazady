@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const config = resolveConfig(overrides);
 
 export const useIsBreakpointActive = (
-  breakpoint: "sm" | "md" | "lg" | "xl" | "2xl"
+  breakpoint: "sm" | "md" | "lg" | "xl" | "2xl",
 ): boolean => {
   const width = config.theme.screens[breakpoint];
   const widthPx = parseInt(width);
@@ -13,7 +13,7 @@ export const useIsBreakpointActive = (
   const [wasBreakpointActive, setWasBreakpointActive] =
     useState(isBreakpointActive);
 
-  // if the breakpoint argument changes, immediately set state 
+  // if the breakpoint argument changes, immediately set state
   // and re-render
   if (wasBreakpointActive !== isBreakpointActive) {
     setWasBreakpointActive(isBreakpointActive);

@@ -10,7 +10,8 @@ type ApiResponse = any;
 interface SearchByIdPayload {
   category: string;
   id: string;
-}interface SearchCategoryPayload {
+}
+interface SearchCategoryPayload {
   category: string;
 }
 

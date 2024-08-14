@@ -18,7 +18,7 @@ export function Navbar() {
         className="pointer-events-auto z-10 flex flex-row items-center
           justify-between gap-5 md:justify-center"
       >
-        {/* Burger menu for moblies*/}
+        {/* Burger menu for moblies */}
         <MobileMenu />
         <Link href="/" passHref>
           <img

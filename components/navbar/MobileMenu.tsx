@@ -25,10 +25,8 @@ import { useIsBreakpointActive } from "@/hooks/useIsBreakpointActive";
 function MobileMenu() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const notMobile = useIsBreakpointActive("md");
-const closeSheet = () => setSheetOpen(false)
-  {
-    /* If not mobile close the sheet*/
-  }
+  const closeSheet = () => setSheetOpen(false);
+  /* If not mobile close the sheet */
   useEffect(() => {
     if (notMobile) {
       setSheetOpen(false);

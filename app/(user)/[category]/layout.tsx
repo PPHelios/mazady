@@ -18,7 +18,7 @@ export function generateStaticParams() {
   return categories.map((category) => ({ category }));
 }
 
-//To prevent unspecified paths from being statically rendered
+// To prevent unspecified paths from being statically rendered
 export const dynamicParams = false;
 export async function generateMetadata({ params }: Props) {
   return {

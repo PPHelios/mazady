@@ -23,11 +23,7 @@ const ItemCarousel = ({ pics }: { pics: string[] }) => {
                   className="flex max-h-96 items-center justify-center
                     rounded-md border border-muted"
                 >
-                  <img
-                    src={pic}
-                    alt={pic}
-                    className="size-full object-cover"
-                  />
+                  <img src={pic} alt={pic} className="size-full object-cover" />
                 </SliderMainItem>
               ))}
             </CarouselMainContainer>
@@ -46,11 +42,7 @@ const ItemCarousel = ({ pics }: { pics: string[] }) => {
                   className="flex cursor-pointer items-center justify-center
                     rounded-md border border-muted bg-background"
                 >
-                  <img
-                    src={pic}
-                    alt={pic}
-                    className="size-full object-cover"
-                  />
+                  <img src={pic} alt={pic} className="size-full object-cover" />
                 </span>
               </SliderThumbItem>
             ))}
