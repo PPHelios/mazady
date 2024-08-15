@@ -45,12 +45,12 @@ export default function NavbarDropdownMenu({
   return (
     <>
       {/* Collabsible menu for moblies */}
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible className="border-none md:hidden">
+        <AccordionItem value="item-1" className="border-none">
           <AccordionTrigger>
             <div
-              className="mt-5 flex cursor-pointer items-center justify-start
-                gap-1 border md:hidden"
+              className="flex cursor-pointer items-center justify-start gap-3
+                pr-3 md:hidden"
             >
               <Avatar className="size-10">
                 <AvatarFallback className="dark:bg-black">

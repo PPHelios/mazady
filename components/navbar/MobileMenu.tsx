@@ -31,7 +31,7 @@ function MobileMenu() {
     if (notMobile) {
       setSheetOpen(false);
     }
-  });
+  }, [notMobile]);
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger className="md:hidden">
@@ -41,8 +41,10 @@ function MobileMenu() {
         <SheetHeader>
           <SheetTitle>Mazady</SheetTitle>
         </SheetHeader>
-        <div className="flex-col justify-start gap-5 pt-5">
+        <div className="flex-col justify-start gap-8 pt-5">
           <SearchBox setSheetOpen={setSheetOpen} />
+          <AuthBtns closeSheet={closeSheet} />
+
           <div>
             <MenuContent
               content={[
@@ -56,10 +58,7 @@ function MobileMenu() {
           </div>
         </div>
 
-        <div
-          className="mt-8 flex w-full flex-col items-start justify-center gap-5"
-        >
-          <AuthBtns closeSheet={closeSheet} />
+        <div className="mt-8">
           <ThemeToggler />
         </div>
       </SheetContent>
